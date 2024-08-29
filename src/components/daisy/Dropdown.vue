@@ -1,6 +1,6 @@
 <template>
   <div class="dropdown">
-    <div tabindex="0">
+    <div :tabindex="index" class="h-full w-full">
       <slot name="title" />
     </div>
     <slot name="content" />
@@ -9,5 +9,11 @@
 
 <script lang="ts">
 export default {
+  props: {
+    index: {
+      type: Number,
+      default: 0
+    }
+  }
 }
 </script>

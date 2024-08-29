@@ -1,10 +1,14 @@
 <template>
-  <div class="drawer lg:drawer-open">
+  <div class="drawer lg:drawer-open bg-base-300 overflow-hidden  ">
     <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content flex flex-col">
       <AppHeader />
       <div class="h-app-page overflow-hidden">
-        <RouterView />
+        <router-view v-slot="{ Component, route }">
+          <transition name="app">
+            <component :is="Component" :key="route.path" />
+          </transition>
+        </router-view>
       </div>
     </div>
     <AppDrawer />
@@ -23,3 +27,22 @@ export default {
   }
 }
 </script>
+
+<style>
+.app-enter-active,
+.app-leave-active {
+  transition: 0.5s ease;
+  position: absolute;
+}
+
+.app-enter-from {
+  transform: translateX(-100vw);
+  opacity: 0;
+
+}
+
+.app-leave-to {
+  transform: translateX(100vw);
+  opacity: 0;
+}
+</style>

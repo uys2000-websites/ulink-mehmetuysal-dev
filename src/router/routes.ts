@@ -31,7 +31,7 @@ export const routes = [
         path: "",
         name: "AppView",
         component: () => import("../views/AppView.vue"),
-        meta: { title: "App Home", authReqired: true },
+        meta: { title: "App Home", authRequired: true },
       },
       {
         path: "",

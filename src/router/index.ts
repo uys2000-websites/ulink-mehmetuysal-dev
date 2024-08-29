@@ -9,12 +9,12 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from) => {
-  document.title = `${to.meta.title} | Mehmet Uysal`;
+  document.title = `${to.meta.title} | ULink`;
 });
 
 router.beforeResolve((to, from) => {
   const authStore = useAuthStore();
-  if (!authStore.isAuthenticated && to.meta.authReqired)
+  if (!authStore.isAuthenticated && to.meta.authRequired)
     return { name: "AppLoader" };
 });
 export default router;
