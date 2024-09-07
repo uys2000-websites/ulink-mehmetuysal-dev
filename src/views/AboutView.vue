@@ -6,7 +6,7 @@
         <div class="max-w-md">
           <h1 class="mb-5 text-5xl font-bold">Created By Mehmet Uysal</h1>
           <p class="mb-5">
-            You can check <a href="https://mehmetuysal.dev">mehmetuysal.dev</a>
+            You can check <a class="link" href="https://mehmetuysal.dev">mehmetuysal.dev</a>
           </p>
         </div>
       </div>

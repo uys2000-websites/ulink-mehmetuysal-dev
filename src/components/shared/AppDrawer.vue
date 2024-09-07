@@ -10,7 +10,7 @@
         </RouterLink>
       </li>
       <li>
-        <RouterLink :to="{ name: 'AppView' }" class="btn btn-neutral justify-start text-nowrap flex-nowrap">
+        <RouterLink :to="{ name: 'LinksView' }" class="btn btn-neutral justify-start text-nowrap flex-nowrap">
           <span class="material-symbols-rounded">link</span>
           <span v-if="isOpen">My Links</span>
         </RouterLink>
@@ -22,8 +22,10 @@
         </button>
       </li>
       <li class="mt-auto">
-        <button class="btn btn-neutral text-nowrap flex-nowrap" @click="() => isOpen = !isOpen">
-          <span class="material-symbols-rounded transition-all duration-200">
+        <button class="btn btn-neutral text-nowrap flex-nowrap" style="transition: 200ms;"
+          :class="{ 'w-[135px]': isOpen, 'w-[60px]': !isOpen, }" @click="() => isOpen = !isOpen">
+          <span class="material-symbols-rounded transition-all duration-400"
+            :style="isOpen ? `transform: rotateY(180deg)` : ''">
             arrow_forward_ios
           </span>
         </button>

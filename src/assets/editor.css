@@ -1,0 +1,39 @@
+.codex-editor__redactor {
+  padding-bottom: 4px !important;
+}
+.ce-inline-tool,
+.ce-toolbar__plus,
+.ce-toolbar__settings-btn {
+  color: var(--fallback-bc, oklch(var(--bc) / var(--tw-text-opacity)));
+}
+
+.ce-toolbar__plus:hover,
+.ce-toolbar__settings-btn:hover {
+  background-color: var(--fallback-b1, oklch(var(--b1) / var(--tw-bg-opacity)));
+}
+.cdx-search-field {
+  background: var(--fallback-b3, oklch(var(--b3) / var(--tw-bg-opacity)));
+}
+.ce-popover {
+  --color-text-primary: var(
+    --fallback-bc,
+    oklch(var(--bc) / var(--tw-text-opacity))
+  );
+  --color-background: var(
+    --fallback-b1,
+    oklch(var(--b1) / var(--tw-bg-opacity))
+  );
+}
+
+@media (max-width: 650px) {
+  .ce-toolbar__plus,
+  .ce-toolbar__settings-btn {
+    background-color: var(
+      --fallback-b3,
+      oklch(var(--b3) / var(--tw-bg-opacity))
+    );
+  }
+  .ce-popover-item {
+    color: var(--fallback-bc, oklch(var(--bc) / var(--tw-text-opacity)));
+  }
+}

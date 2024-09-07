@@ -8,11 +8,8 @@ const router = createRouter({
   routes: routes,
 });
 
-router.beforeEach((to, from) => {
-  document.title = `${to.meta.title} | ULink`;
-});
-
 router.beforeResolve((to, from) => {
+  document.title = `${to.meta.title} | ULink`;
   const authStore = useAuthStore();
   if (!authStore.isAuthenticated && to.meta.authRequired)
     return { name: "AppLoader" };

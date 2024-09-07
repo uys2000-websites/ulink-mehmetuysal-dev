@@ -6,8 +6,13 @@ import { createPinia } from "pinia";
 import App from "./App.vue";
 import router from "./router";
 import { useAppStore } from "./stores/app";
-
+import { setULogger } from "u-logger";
 const app = createApp(App);
+
+setULogger(
+  import.meta.env.DEV || localStorage.getItem("debug") == "true",
+  false
+);
 
 app.use(createPinia());
 app.use(router);

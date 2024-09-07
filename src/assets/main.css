@@ -1,3 +1,4 @@
+@import "./editor.css";
 @import "./fonts.css";
 @import "./overrides.css";
 
@@ -22,4 +23,12 @@
 
 * {
   @apply transition-all duration-200;
+}
+*:not(input),
+*:focus {
+  @apply transition-all duration-0;
+}
+
+.firebase-emulator-warning {
+  display: none;
 }

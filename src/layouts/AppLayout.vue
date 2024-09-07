@@ -1,9 +1,9 @@
 <template>
-  <div class="drawer lg:drawer-open bg-base-300 overflow-hidden  ">
+  <div class="drawer lg:drawer-open bg-base-300 text-base-content overflow-hidden">
     <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content flex flex-col">
       <AppHeader />
-      <div class="h-app-page overflow-hidden">
+      <div class="h-app-page overflow-hidden relative">
         <router-view v-slot="{ Component, route }">
           <transition name="app">
             <component :is="Component" :key="route.path" />

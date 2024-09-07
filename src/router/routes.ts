@@ -34,11 +34,29 @@ export const routes = [
         meta: { title: "App Home", authRequired: true },
       },
       {
+        path: "links",
+        name: "LinksView",
+        component: () => import("../views/LinksView.vue"),
+        meta: { title: "My Links", authRequired: true },
+      },
+      {
         path: "",
         name: "AppLoader",
         component: () => import("../views/AppLoader.vue"),
         meta: { title: "App Loader" },
       },
     ],
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    name: "LinkView",
+    component: () => import("../views/LinkView.vue"),
+    meta: { title: "Short Link" },
+  },
+  {
+    path: "/:id",
+    name: "LinkView",
+    component: () => import("../views/LinkView.vue"),
+    meta: { title: "Short Link" },
   },
 ] as RouteRecordRaw[];

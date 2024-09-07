@@ -2,7 +2,7 @@
   <header class="px-4 pt-4 sticky top-0 z-10">
     <div class="bg-neutral text-neutral-content flex justify-between items-center p-4 rounded-box">
       <RouterLink class="btn btn-sm btn-ghost" :to="{ name: 'HomeView' }">
-        Mehmet Uysal
+        ULinks
       </RouterLink>
       <div class="flex gap-2">
         <RouterLink class="btn btn-sm btn-ghost" :to="{ name: 'AboutView' }">
