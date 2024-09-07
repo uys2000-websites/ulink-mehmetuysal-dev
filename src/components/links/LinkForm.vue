@@ -1,5 +1,5 @@
 <template>
-  <form class="flex flex-col gap-[6px] h-max p-2" @submit.prevent="() => $emit('submit', value)">
+  <form class="flex flex-col gap-[6px] h-max p-2" @submit.prevent="submit">
     <label class="label cursor-pointer input input-bordered">
       <span class="label-text">Active</span>
       <input type="checkbox" class="toggle toggle-primary min-w-0" v-model="value.data.isActive" />
@@ -57,7 +57,7 @@
           <div class="border input-bordered rounded-btn p-3">
             Content:
             <div class="border input-bordered rounded-btn m-1 p-2">
-              <Editor ref="editor" :id="`f${value.id}`" />
+              <Editor ref="editor" :id="`f${value.id}`" :data="value.data.content" />
             </div>
           </div>
         </div>
@@ -88,6 +88,13 @@ export default {
   data() {
     return {
       value: {} as UDocument<ULink>
+    }
+  },
+  methods: {
+    async submit() {
+      const editor = this.$refs.editor as typeof Editor
+      this.value.data.content = await editor.get()
+      this.$emit('submit', this.value)
     }
   },
   beforeMount() {

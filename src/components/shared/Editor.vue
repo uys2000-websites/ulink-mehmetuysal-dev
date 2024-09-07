@@ -6,11 +6,15 @@
 import EditorJS from '@editorjs/editorjs';
 import Header from '@editorjs/header';
 import List from '@editorjs/list';
+import type { PropType } from 'vue';
 export default {
   props: {
     id: {
       type: String,
       default: "editor"
+    },
+    data: {
+      type: Object as PropType<EditorResult>
     }
   },
   data() {
@@ -33,6 +37,7 @@ export default {
           header: Header,
           list: List
         },
+        data: this.data
       }
     );
   }

@@ -27,7 +27,7 @@
 </template>
 
 <script lang="ts">
-import LinkFormQuick from '@/components/Links/LinkFormQuick.vue';
+import LinkFormQuick from '@/components/links/LinkFormQuick.vue';
 import { createLink } from '@/services/firebase/db';
 export default {
   components: { LinkFormQuick },

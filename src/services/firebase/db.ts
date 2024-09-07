@@ -1,4 +1,4 @@
-import { GENERAL, INFO, LINK } from "@/constants";
+import { GENERAL, INFO, LINK, USAGE } from "@/constants";
 import { app } from "./app";
 import {
   getFirestore,
@@ -12,6 +12,7 @@ import {
   where,
   orderBy,
   getDocs,
+  addDoc,
 } from "firebase/firestore";
 import { auth } from "./auth";
 import { encode } from "../sqids";
@@ -48,7 +49,6 @@ export const getLinks = async () => {
 export const createLink = async (data: UDocument<ULink>) => {
   data.id = encode(await getIndex());
   data.uid = getUserId();
-  console.log(data);
   data.timestamp = Date.now();
   data.utimestamp = Date.now();
   await setDoc(doc(db, LINK, data.id), data);
@@ -64,4 +64,8 @@ export const updateLink = async (data: UDocument<ULink>) => {
 
 export const removeLink = (id: string) => {
   return deleteDoc(doc(db, LINK, id));
+};
+
+export const addUsage = async (id: string) => {
+  return addDoc(collection(db, USAGE), { id: id, uid: getUserId() });
 };

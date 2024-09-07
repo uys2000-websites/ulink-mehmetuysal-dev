@@ -1,73 +1,63 @@
 <template>
   <div class="bg-base-300">
-    <template v-if="authRequire">
-      <template v-if="false">Authentication View</template>
-      auth
-    </template>
-    <template v-else-if="!link">
-      <template v-if="false">404 View</template>
-      <div class="h-screen w-screen relative flex flex-col justify-center items-center">
-        <img src="/images/404.jpeg" alt="404 image" class="absolute w-full h-full">
-        <RouterLink :to="{ name: 'HomeView' }" class="btn btn-primary z-10 min-w-32">
-          To Home
-        </RouterLink>
-      </div>
-    </template>
-    <template v-else>
-      <template v-if="false">Link View</template>
-      <div
-        class="h-screen w-screen relative flex flex-col justify-center items-center bg-center bg-no-repeat bg-contain"
-        :style="`background-image: url('${link.data.backgroundUrl}');`">
-        {{ link }}
-        <template v-if="link.data.showRedirectButton">
-          <a :href="link.data.url">To Link</a>
-        </template>
-      </div>
-    </template>
+    <Auth @sign-in="onSignIn" v-if="authRequire" />
+    <NotFound v-else-if="!link" />
+    <View v-else-if="link" :link="link" />
+    <template v-else> How can this posible :) </template>
   </div>
 </template>
 
 <script lang="ts">
-import { getLink } from '@/services/firebase/db';
-import { RouterLink } from 'vue-router';
+import Auth from "@/components/link/Auth.vue";
+import NotFound from "@/components/link/NotFound.vue";
+import View from "@/components/link/View.vue";
+import { signOut } from "@/services/firebase/auth";
+import { addUsage, getLink } from "@/services/firebase/db";
+import { RouterLink } from "vue-router";
 
 export default {
   components: {
-    RouterLink
+    Auth,
+    NotFound,
+    View,
+    RouterLink,
   },
   data() {
     return {
       authRequire: false,
-      link: null as null | UDocument<ULink>
-    }
+      link: null as null | UDocument<ULink>,
+    };
   },
   methods: {
-    redirect(timer: number) {
-      setTimeout(() => window.location.href = this.link?.data.url as string, timer);
-    },
-    redirectControl() {
-      if (this.link) {
-        const showBtn = this.link.data.showRedirectButton
-        const timer = this.link.data.timer
-        //if (timer > 0) this.redirect(timer)
-        //if ((timer <= 0 && !showBtn)) this.redirect(0)
-      }
+    async onSignIn() {
+      this.link = await getLink
+        .pLogger(this.$route.params.id as string).then(async (link) => {
+          if (link) await addUsage.pLogger(link.id)
+          return link;
+        })
+        .catch(async (err) => {
+          await signOut()
+          this.authRequire = true;
+          return null;
+        });
+      if (this.link) this.authRequire = false;
+      await signOut()
     },
     async loadLink() {
-      const id = this.$route.params.id as string | undefined
-      if (id) {
-        this.link = await getLink(id).catch((err) => {
-          console.log(err)
-          this.authRequire = true
-          return null;
+      this.link = await getLink
+        .pLogger(this.$route.params.id as string).then(async (link) => {
+          if (link) await addUsage.pLogger(link.id)
+          return link;
         })
-        this.redirectControl()
-      }
-      return [!!this.link, this.authRequire]
-    }
+        .catch((err) => {
+          this.authRequire = true;
+          return null;
+        });
+      return [!!this.link, this.authRequire];
+    },
   },
   async mounted() {
     await this.loadLink.pLogger();
-  }
-}
+  },
+};
 </script>

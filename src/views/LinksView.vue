@@ -8,7 +8,7 @@
       <span class="material-symbols-outlined">add</span>
     </div>
     <Modal ref="modal" @close="clearModal">
-      <LinkForm :link="link" @submit="create" />
+      <LinkForm :link="link" @submit="(link) => create(link)" />
     </Modal>
   </div>
 </template>
@@ -16,9 +16,9 @@
 <script lang="ts">
 import Accordion from '@/components/daisy/Accordion.vue';
 import Modal from '@/components/daisy/Modal.vue';
-import LinkForm from '@/components/Links/LinkForm.vue';
-import LinkFormQuick from '@/components/Links/LinkFormQuick.vue';
-import Links from '@/components/Links/Links.vue';
+import LinkForm from '@/components/links/LinkForm.vue';
+import LinkFormQuick from '@/components/links/LinkFormQuick.vue';
+import Links from '@/components/links/Links.vue';
 import { createLink, getLinks, removeLink, updateLink } from '@/services/firebase/db';
 
 export default {
@@ -41,8 +41,8 @@ export default {
       const modal = this.$refs.modal as typeof Modal
       modal.open();
     },
-    async create() {
-      const newLink = await createLink.pLogger(this.link)
+    async create(link?: UDocument<ULink>) {
+      const newLink = await createLink.pLogger(link ?? this.link)
       this.links.unshift({ ...newLink, data: { ...newLink.data } });
     },
     async update(link: UDocument<ULink>) {
