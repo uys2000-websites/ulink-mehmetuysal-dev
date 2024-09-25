@@ -38,5 +38,6 @@
     "vite-plugin-vue-devtools": "^7.3.1",
     "vue-tsc": "^2.0.21"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "packageManager": "yarn@1.22.19"
 }
