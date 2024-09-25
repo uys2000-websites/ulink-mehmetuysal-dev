@@ -1,9 +1,11 @@
 <template>
   <div class="bg-base-300">
-    <Auth @sign-in="onSignIn" v-if="authRequire" />
-    <NotFound v-else-if="!link" />
-    <View v-else-if="link" :link="link" />
-    <template v-else> How can this posible :) </template>
+    <template v-if="loaded">
+      <Auth @sign-in="onSignIn" v-if="authRequire" />
+      <NotFound v-else-if="!link" />
+      <View v-else-if="link" :link="link" />
+      <template v-else> How can this posible :) </template>
+    </template>
   </div>
 </template>
 
@@ -24,6 +26,7 @@ export default {
   },
   data() {
     return {
+      loaded: false,
       authRequire: false,
       link: null as null | UDocument<ULink>,
     };
@@ -52,6 +55,8 @@ export default {
         .catch((err) => {
           this.authRequire = true;
           return null;
+        }).finally(() => {
+          this.loaded = true
         });
       return [!!this.link, this.authRequire];
     },
